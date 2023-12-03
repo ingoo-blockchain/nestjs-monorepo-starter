@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mysql:
+    image: library/mysql:8.0.22
+    container_name: mysql-database
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Seoul
+    volumes:
+      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
+    platform: linux/x86_64
+  mongodb:
+    image: mongo
+    container_name: mongo-database
+    ports:
+      - 27017:27017
+    volumes:
+      - ./db/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
